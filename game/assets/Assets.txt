@@ -1,0 +1,2 @@
+- [Folder] Asset Name
+	- [File] sprite_sheet_1.png

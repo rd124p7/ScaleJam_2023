@@ -1,10 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://dh7klyj14bg2j"]
+[gd_scene load_steps=4 format=3 uid="uid://dh7klyj14bg2j"]
 
 [ext_resource type="Script" path="res://Scenes/Monkey/monkey.gd" id="1_1pdyh"]
 [ext_resource type="Texture2D" uid="uid://chra1pxctx3vh" path="res://assets/Person_1.png" id="1_ccr4d"]
+[ext_resource type="Script" path="res://Scenes/Monkey/StateController.gd" id="2_80kim"]
 
 [node name="Monkey" type="Node2D"]
 script = ExtResource("1_1pdyh")
+
+[node name="StateController" type="Node" parent="."]
+script = ExtResource("2_80kim")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(6, 6)

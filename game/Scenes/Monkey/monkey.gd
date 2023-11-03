@@ -1,6 +1,14 @@
 extends Node2D
 
+
+# Load Scenes
 var monkey_gui_scene: PackedScene = preload("res://Scenes/Monkey/MonkeyGui/monkey_gui.tscn")
+
+
+
+# Monkey States
+var monkey_action_state: MonkeyState
+
 
 # Monkey Gui Variables
 var monkey_action_buttons: Variant
@@ -9,6 +17,7 @@ var is_create_menu: bool = false
 
 
 func _ready():
+
 	print_debug(self.position)
 
 func _process(_delta):

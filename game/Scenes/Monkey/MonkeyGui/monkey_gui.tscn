@@ -1,3 +1,33 @@
-[gd_scene format=3 uid="uid://c657s2mbjqsf2"]
+[gd_scene load_steps=2 format=3 uid="uid://c657s2mbjqsf2"]
 
-[node name="MonkeyGUI" type="Node2D"]
+[ext_resource type="Script" path="res://Scenes/Monkey/MonkeyGui/monkey_gui.gd" id="1_ra2m2"]
+
+[node name="MonkeyGUI" type="Control"]
+layout_mode = 3
+offset_top = 324.0
+offset_right = 1152.0
+offset_bottom = 324.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ra2m2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 233.0
+offset_bottom = 31.0
+metadata/_edit_use_anchors_ = true
+
+[node name="ActionButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Action"
+
+[node name="BladderButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Empty Bladder"
+
+[node name="FeedButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Feed
+"
+
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]

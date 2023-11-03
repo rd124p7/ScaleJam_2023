@@ -3,7 +3,7 @@ extends Node
 
 signal monkey_state_changed
 
-# States Enumeration
+# Action state constants
 enum M_STATES {
 	IDLE,
 	DO_ACTION,
@@ -12,8 +12,12 @@ enum M_STATES {
 	CALMING_DOWN
 } 
 
-# Current state of the monkey
-# Will Emit a signal when the value changed
+
+
+# Property Name: current_state
+# Description:
+#	Holds the current action state of the monkey, DEFAULT = M_STATES_IDLE, 
+# 	Will emit monkey_state_changed signal with the value is changed
 var current_state: M_STATES = M_STATES.IDLE:
 	set(value):
 		current_state = value

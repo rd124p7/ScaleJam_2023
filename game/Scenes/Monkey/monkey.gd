@@ -38,7 +38,7 @@ func handle_menu_mouse_click() -> void:
 	if is_monkey_selected:
 		if Input.is_action_just_pressed("MonkeyActionMenu"):
 			is_create_menu = !is_create_menu
-		
+			Node.print_orphan_nodes()
 			# Menu Toggle
 			if is_create_menu:
 				create_menu_instance()

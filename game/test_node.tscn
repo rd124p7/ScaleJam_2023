@@ -6,3 +6,4 @@
 
 [node name="Monkey" parent="." instance=ExtResource("1_nskbb")]
 position = Vector2(165, 238)
+collision_layer = 3

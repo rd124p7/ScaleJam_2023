@@ -1,9 +1,8 @@
-extends Node2D
+extends CharacterBody2D
 
 
 # Load Scenes
 var monkey_gui_scene: PackedScene = preload("res://Scenes/Monkey/MonkeyGui/monkey_gui.tscn")
-
 
 
 # Monkey States
@@ -23,13 +22,13 @@ func _ready():
 func _process(_delta):
 	handle_menu_mouse_click()
 
-func _on_mouse_collision_mouse_entered():
+
+func _on_mouse_entered():
 	is_monkey_selected = true
 	
-func _on_mouse_collision_mouse_exited():
+func _on_mouse_exited():
 	is_monkey_selected = false
 	
-
 
 # Function Name: handle_mouse_click
 # Description:

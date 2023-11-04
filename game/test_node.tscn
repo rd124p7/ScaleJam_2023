@@ -1,14 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://cuxytn5wn35em"]
+[gd_scene load_steps=4 format=3 uid="uid://cuxytn5wn35em"]
 
 [ext_resource type="PackedScene" uid="uid://dh7klyj14bg2j" path="res://Scenes/Monkey/monkey.tscn" id="1_nskbb"]
 [ext_resource type="PackedScene" uid="uid://d0hhs0um6k6ai" path="res://Scenes/CameraController/player_camera_controller.tscn" id="2_h60fo"]
+[ext_resource type="PackedScene" uid="uid://rv0mxvxs5ydp" path="res://Scenes/ActionAreas/machine_area.tscn" id="3_31qxc"]
 
 [node name="TestNode" type="Node2D"]
 
-[node name="Monkey" parent="." instance=ExtResource("1_nskbb")]
-position = Vector2(-19, 35)
-collision_layer = 3
-
 [node name="PlayerCameraController" parent="." instance=ExtResource("2_h60fo")]
 
+[node name="Monkey" parent="." instance=ExtResource("1_nskbb")]
+position = Vector2(2, -2)
+collision_layer = 3
+
+[node name="MachineArea" parent="." instance=ExtResource("3_31qxc")]
+position = Vector2(-585, 122)
+
+[connection signal="highlight_possible_actions" from="PlayerCameraController" to="MachineArea" method="_on_player_camera_controller_highlight_possible_actions"]
 [connection signal="action_needs_selecting" from="Monkey" to="PlayerCameraController" method="_on_monkey_action_needs_selecting"]

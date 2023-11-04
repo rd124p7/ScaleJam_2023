@@ -80,9 +80,10 @@ func create_menu_instance() -> void:
 # Description:
 # 	If the scene is valid then remove the child from the Monkey tree
 func destory_menu_instance() -> void:
-	if is_instance_valid(monkey_action_buttons) && monkey_action_buttons:
+	if is_instance_valid($GUI_Layer.get_node(monkey_action_buttons.get_path())) && monkey_action_buttons:
 		self.remove_child(monkey_action_buttons)
 
+	
 
 
 

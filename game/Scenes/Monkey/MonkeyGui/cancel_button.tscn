@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3aqqampfmtom"]
+
+[ext_resource type="Texture2D" uid="uid://hc7ktu1ehgro" path="res://assets/CancelButton.png" id="1_iynps"]
+[ext_resource type="Script" path="res://Scenes/Monkey/MonkeyGui/CancelButton.gd" id="1_l7a8b"]
+
+[node name="CancelButton" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_l7a8b")
+
+[node name="CancelButtonTexture" type="TextureButton" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("1_iynps")
+
+[connection signal="mouse_entered" from="CancelButtonTexture" to="." method="_on_cancel_button_texture_mouse_entered"]
+[connection signal="mouse_exited" from="CancelButtonTexture" to="." method="_on_cancel_button_texture_mouse_exited"]
+[connection signal="pressed" from="CancelButtonTexture" to="." method="_on_cancel_button_texture_pressed"]

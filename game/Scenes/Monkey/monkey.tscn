@@ -16,13 +16,16 @@ polygon = PackedVector2Array(-12, -48, -24, -35, -30, 7, -30, 24, -17, 49, 12, 4
 script = ExtResource("2_80kim")
 
 [node name="MonkeySprite" type="Sprite2D" parent="."]
-scale = Vector2(5, 5)
+scale = Vector2(3, 3)
 texture = ExtResource("1_ccr4d")
+
+[node name="GUI_Layer" type="CanvasLayer" parent="."]
 
 [node name="MonkeyBarIndicators" type="Node2D" parent="."]
 position = Vector2(0, -65)
 
 [node name="MonkeyPanicBarIndicator" parent="MonkeyBarIndicators" instance=ExtResource("4_bc4u5")]
+scale = Vector2(0.5, 0.5)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 

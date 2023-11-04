@@ -82,6 +82,7 @@ func animate_bar_shake() -> void:
 	bar_shake_tween.chain().tween_property(self, "rotation", 0, 0.1)
 
 
+
 # Function Name: stop_timer_if_started
 # Description:
 # 	If the timer is not stopped then stop the timer

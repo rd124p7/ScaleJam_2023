@@ -1,0 +1,134 @@
+class_name MachineType
+extends Node
+
+#Signals
+signal machine_action_needed
+signal machine_broken
+
+
+# Machine Stat Enumeration
+enum MACHINE_STATE {
+	RUNNING,
+	BROKEN
+}
+
+
+# Property Name: action_name
+# Description:
+# 	What the action will be refered to in other scripts
+# 	Will remove any spaces within the string
+@export var action_name: String:
+	set(value):
+		action_name = value.replace(" ", "")
+	get:
+		return action_name
+	
+
+# Property Name: action_time
+# Description:
+#	The time it will take to complete the action in (seconds) 
+#	min is 0.1 max is 15
+@export_range(0.1, 15) var action_time: float = 1:
+	set(value):
+		action_time = clamp(value, 0.1, 15)
+	get:
+		return action_time
+
+
+# Property Name: repair_time
+# Description:
+#	The time it will to complete a repair of the item
+@export_range(10, 25) var repair_time: float = 10:
+	set(value):
+		repair_time = clamp(value, 10, 25)
+	get:
+		return repair_time
+
+
+# Property Name: event_time
+# Description:
+#	The time it will take to check for an event to see if the machine will break
+@export_range(30, 45) var event_time: int = 30:
+	set(value):
+		event_time = clamp(value, 30, 45)
+	get:
+		return event_time
+
+
+# Property Name: current_machine_state
+# Description:
+# 	Holds the state of the current machine whether RUNNING, ACTION_NEEDED,
+# 	or BROKEN
+@export var current_machine_state: MACHINE_STATE = MACHINE_STATE.RUNNING:
+	set(value):
+		current_machine_state = value
+	get:
+		return current_machine_state
+
+
+# Timer references
+@export var action_time_timer: Timer
+@export var repair_time_timer: Timer
+@export var weighted_event_timer: Timer
+
+
+
+# Function Name: _init
+# Description:
+# 	Initialize the timers wait time and connect their timeout signals to 
+#	function within this script
+func _init():
+	action_time_timer.wait_time = action_time
+	action_time_timer.timeout.connect(_on_action_time_timer_timeout)
+	repair_time_timer.wait_time = repair_time
+	repair_time_timer.timeout.connect(_on_repair_time_timer_timeout)
+	weighted_event_timer.wait_time = event_time
+	weighted_event_timer.timeout.connect(_on_weighted_event_timer_timeout)
+
+
+
+# Function Name: _process
+# Description:
+# 	
+func _process(_delta):
+	pass
+
+
+
+# Function Name: _on_action_time_timer_timeout
+# Description:
+# 	
+func _on_action_time_timer_timeout():
+	pass
+
+
+
+# Function Name: _on_repair_time_timer_timeout
+# Description:
+#	
+func _on_repair_time_timer_timeout():
+	pass
+
+
+func _on_weighted_event_timer_timeout():
+	pass
+
+
+
+# Function Name: generate_random_event_number
+# Description:
+# 	Will create and return a random integer between 1 and 100
+func generate_random_event_number() -> float:
+	var rand_gen: RandomNumberGenerator = RandomNumberGenerator.new()
+	rand_gen.randomize()
+	return rand_gen.randi_range(1, 100)
+
+
+
+# Function Name: calculate_weighted_break_event
+# Description: 
+# 	Will decide to change the state of the Machine based on if this
+func calculate_weighted_break_event() -> void:
+	var weighted_number: float = generate_random_event_number()
+	if weighted_number > 0 && weighted_number <= 10:
+		current_machine_state = MACHINE_STATE.BROKEN

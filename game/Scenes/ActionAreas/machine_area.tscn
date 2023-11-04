@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://rv0mxvxs5ydp"]
+
+[ext_resource type="Script" path="res://Scenes/ActionAreas/MachineArea.gd" id="1_5plx1"]
+[ext_resource type="Texture2D" uid="uid://cuqw23pxlv7ow" path="res://assets/TempActionArea.png" id="1_c1t1g"]
+[ext_resource type="Script" path="res://Scenes/ActionAreas/ActionTypes/machine_action.gd" id="3_xltjt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tkslj"]
+size = Vector2(55, 46)
+
+[node name="MachineArea" type="StaticBody2D"]
+script = ExtResource("1_5plx1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0.5, -1)
+scale = Vector2(1.01563, 0.96875)
+texture = ExtResource("1_c1t1g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -1)
+shape = SubResource("RectangleShape2D_tkslj")
+debug_color = Color(0.811765, 0.286275, 0.745098, 0.419608)
+
+[node name="MachineType" type="Node" parent="." node_paths=PackedStringArray("action_time_timer", "repair_time_timer")]
+script = ExtResource("3_xltjt")
+action_name = "TestAction"
+action_time_timer = NodePath("../Timers/ActionTimer")
+repair_time_timer = NodePath("../Timers/RepairTimer")
+
+[node name="Timers" type="Node2D" parent="."]
+
+[node name="ActionTimer" type="Timer" parent="Timers"]
+
+[node name="RepairTimer" type="Timer" parent="Timers"]

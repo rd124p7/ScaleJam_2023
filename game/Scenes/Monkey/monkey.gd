@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+# Signal to tell the camera to zoom out and highlight the possible action areas
+signal action_needs_selecting
+
 
 # Load Scenes
 var monkey_gui_scene: PackedScene = preload("res://Scenes/Monkey/MonkeyGui/monkey_gui.tscn")
@@ -16,11 +19,11 @@ var is_create_menu: bool = false
 
 
 func _ready():
+	pass
 
-	print_debug(self.position)
 
 func _process(_delta):
-	handle_menu_mouse_click() 
+	handle_menu_mouse_hover() 
 
 	# =======	TEST FUNCTION ========
 	test_panic_bar()
@@ -34,10 +37,20 @@ func _on_mouse_exited():
 	is_monkey_selected = false
 	
 
+
+# Function Name: _on_action_button_activated
+# Description: 
+# 	When the Action Button is Pressed emit the action_needs_selecting signal, it will be used to tell 
+#	the camera to zoom out and highlight the action areas
+func _on_action_button_activated():
+	action_needs_selecting.emit()
+
+
+
 # Function Name: handle_mouse_click
 # Description:
 # 	Check for the right mouse button and call create_menu_instance function
-func handle_menu_mouse_click() -> void:
+func handle_menu_mouse_hover() -> void:
 	if is_monkey_selected:
 		if Input.is_action_just_pressed("MonkeyActionMenu"):
 			is_create_menu = !is_create_menu
@@ -56,8 +69,8 @@ func create_menu_instance() -> void:
 	if is_create_menu:
 		monkey_action_buttons = monkey_gui_scene.instantiate()
 		monkey_action_buttons.position = Vector2(0, -128) 
-		print_debug("Monkey button ", monkey_action_buttons.position)
-		
+		monkey_action_buttons.action_button_activated.connect(_on_action_button_activated)
+
 		if monkey_action_buttons:
 			self.add_child(monkey_action_buttons)
 

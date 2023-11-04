@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0hhs0um6k6ai"]
+
+[ext_resource type="Script" path="res://Scenes/CameraController/PlayerCameraController.gd" id="1_dkbjb"]
+
+[node name="PlayerCameraController" type="Node2D"]
+script = ExtResource("1_dkbjb")
+
+[node name="PlayerCamera" type="Camera2D" parent="."]
+limit_left = -2000
+limit_top = -2000
+limit_right = 2000
+limit_bottom = 2000
+position_smoothing_enabled = true

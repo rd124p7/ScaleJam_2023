@@ -1,9 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://cuxytn5wn35em"]
+[gd_scene load_steps=3 format=3 uid="uid://cuxytn5wn35em"]
 
 [ext_resource type="PackedScene" uid="uid://dh7klyj14bg2j" path="res://Scenes/Monkey/monkey.tscn" id="1_nskbb"]
+[ext_resource type="PackedScene" uid="uid://d0hhs0um6k6ai" path="res://Scenes/CameraController/player_camera_controller.tscn" id="2_h60fo"]
 
 [node name="TestNode" type="Node2D"]
 
 [node name="Monkey" parent="." instance=ExtResource("1_nskbb")]
-position = Vector2(165, 238)
+position = Vector2(-19, 35)
 collision_layer = 3
+
+[node name="PlayerCameraController" parent="." instance=ExtResource("2_h60fo")]

@@ -38,3 +38,4 @@ text = "Feed
 
 [connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
+[connection signal="pressed" from="ActionButton" to="." method="_on_action_button_pressed"]

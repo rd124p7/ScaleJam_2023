@@ -1,5 +1,9 @@
 extends Control
 
+
+signal action_button_activated
+
+
 # Function Name: _ready
 # Description:
 # 	Set all of the buttons scale to 0
@@ -7,6 +11,14 @@ func _ready():
 	for button_node in self.get_children():
 		button_node.scale = Vector2(0, 0)
 
+
+
+# Function Name: _on_action_button_pressed
+# Description:
+# 	Emit action_button_activated when the action button is pressed
+func _on_action_button_pressed():
+	action_button_activated.emit()
+		
 
 
 # Function Name: _on_tree_entered
@@ -43,5 +55,3 @@ func animate_buttons():
 		# Feed Button Animation
 		button_tween.chain().tween_property($FeedButton, "scale", Vector2(1.4, 1.4), 0.2)
 		button_tween.chain().tween_property($FeedButton, "scale", Vector2(1.0, 1.0), 0.1)
-	
-

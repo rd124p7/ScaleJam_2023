@@ -10,3 +10,5 @@ position = Vector2(-19, 35)
 collision_layer = 3
 
 [node name="PlayerCameraController" parent="." instance=ExtResource("2_h60fo")]
+
+[connection signal="action_needs_selecting" from="Monkey" to="PlayerCameraController" method="_on_monkey_action_needs_selecting"]

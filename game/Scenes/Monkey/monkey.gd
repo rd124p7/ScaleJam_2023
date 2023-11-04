@@ -20,7 +20,11 @@ func _ready():
 	print_debug(self.position)
 
 func _process(_delta):
-	handle_menu_mouse_click()
+	handle_menu_mouse_click() 
+
+	# =======	TEST FUNCTION ========
+	test_panic_bar()
+	# =======	END TEST FUNCTION ====
 
 
 func _on_mouse_entered():
@@ -37,7 +41,6 @@ func handle_menu_mouse_click() -> void:
 	if is_monkey_selected:
 		if Input.is_action_just_pressed("MonkeyActionMenu"):
 			is_create_menu = !is_create_menu
-			Node.print_orphan_nodes()
 			# Menu Toggle
 			if is_create_menu:
 				create_menu_instance()
@@ -69,3 +72,20 @@ func destory_menu_instance() -> void:
 
 
 
+
+"""	=======		TEMP TEST FUNCTION		======="""
+
+func test_panic_bar():
+	if Input.is_action_just_pressed("ui_left"):
+		if $StateController:
+			$StateController.panic_state.current_panic_percentage += 0.1
+			$MonkeyBarIndicators/MonkeyPanicBarIndicator.add_panic_to_bar()
+			print_debug("Panic State %: ", $StateController.panic_state.current_panic_percentage)
+	if Input.is_action_just_pressed("ui_right"):
+		if $StateController:
+			$StateController.panic_state.current_panic_percentage -= 0.1
+			$MonkeyBarIndicators/MonkeyPanicBarIndicator.sub_panic_from_bar()
+			print_debug("Panic State %: ", $StateController.panic_state.current_panic_percentage)
+
+
+"""	=======		END TEMP TEST FUNCTION	======="""

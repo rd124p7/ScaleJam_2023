@@ -14,6 +14,10 @@ config/name="ScaleJam_2023"
 config/features=PackedStringArray("4.1", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GlobalSignalGlue="*res://Scenes/global_signal_glue.gd"
+
 [display]
 
 window/size/viewport_width=1280

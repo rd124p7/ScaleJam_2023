@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dh7klyj14bg2j"]
+[gd_scene load_steps=6 format=3 uid="uid://dh7klyj14bg2j"]
 
 [ext_resource type="Script" path="res://Scenes/Monkey/monkey.gd" id="1_1pdyh"]
-[ext_resource type="Texture2D" uid="uid://chra1pxctx3vh" path="res://assets/Person_1.png" id="1_ccr4d"]
 [ext_resource type="Script" path="res://Scenes/Monkey/StateController.gd" id="2_80kim"]
+[ext_resource type="Script" path="res://Scenes/Monkey/monkey_do_action.gd" id="3_iypl6"]
+[ext_resource type="Texture2D" uid="uid://wwc6c6krp7cp" path="res://assets/Monkey_1.png" id="3_wp8nu"]
 [ext_resource type="PackedScene" uid="uid://hg5vut0tquyc" path="res://Scenes/Monkey/MonkeyGui/monkey_panic_bar_indicator.tscn" id="4_bc4u5"]
 
 [node name="Monkey" type="CharacterBody2D"]
@@ -10,16 +11,17 @@ input_pickable = true
 script = ExtResource("1_1pdyh")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-12, -48, -24, -35, -30, 7, -30, 24, -17, 49, 12, 49, 24, 25, 24, 6, 18, -36, 6, -48)
+polygon = PackedVector2Array(1, -23, -16, -21, -30, 7, -30, 13, -24, 23, -26, 32, -10, 38, -1, 31, 8, 37, 14, 36, 19, 29, 18, 26, 10, 27, 6, 3, 14, 1, 20, -6, 30, -12, 31, -17, 23, -21, 22, -31, 13, -31)
 
 [node name="StateController" type="Node" parent="."]
 script = ExtResource("2_80kim")
 
-[node name="MonkeySprite" type="Sprite2D" parent="."]
-scale = Vector2(3, 3)
-texture = ExtResource("1_ccr4d")
+[node name="MonkeyDoAction" type="Node2D" parent="."]
+script = ExtResource("3_iypl6")
 
-[node name="GUI_Layer" type="CanvasLayer" parent="."]
+[node name="MonkeySprite" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_wp8nu")
 
 [node name="MonkeyBarIndicators" type="Node2D" parent="."]
 position = Vector2(0, -65)
@@ -27,7 +29,8 @@ position = Vector2(0, -65)
 [node name="MonkeyPanicBarIndicator" parent="MonkeyBarIndicators" instance=ExtResource("4_bc4u5")]
 scale = Vector2(0.5, 0.5)
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+[node name="MonkeyNavigation" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

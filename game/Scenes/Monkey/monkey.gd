@@ -2,14 +2,14 @@ extends CharacterBody2D
 
 # Signal to tell the camera to zoom out and highlight the possible action areas
 signal action_needs_selecting
-
+signal action_has_been_selected(target_camera_position: Vector2)
 
 # Load Scenes
 var monkey_gui_scene: PackedScene = preload("res://Scenes/Monkey/MonkeyGui/monkey_gui.tscn")
 
 
 # Monkey States
-var monkey_action_state: MonkeyState
+var monkey_action_state: MonkeyState.M_STATES
 
 
 # Monkey Gui Variables
@@ -17,10 +17,12 @@ var monkey_action_buttons: Variant
 var is_monkey_selected: bool = false
 var is_create_menu: bool = false
 
+# Monkey Movement Variables
+var target_action_position: Vector2 = Vector2.ZERO
+var direction: Vector2 = Vector2.ZERO
 
 func _ready():
 	pass
-
 
 func _process(_delta):
 	handle_menu_mouse_hover() 
@@ -30,9 +32,34 @@ func _process(_delta):
 	# =======	END TEST FUNCTION ====
 
 
+
+# Function Name: _physics_process
+# Description:
+#	Move the player to the new position using pathfinding
+func _physics_process(delta):
+	
+	if monkey_action_state == MonkeyState.M_STATES.DO_ACTION:
+		$MonkeyNavigation.target_position = target_action_position
+		direction = $MonkeyNavigation.get_next_path_position() - global_position
+		direction = direction.normalized()
+		velocity = velocity.lerp(direction * 100, 10 * delta)
+
+	move_and_slide()
+
+
+
+# Function Name: _on_mouse_entered
+# Description:
+# 	Change is_monkey_selected to true when the mouse 
+#	has entered the monkey collision area
 func _on_mouse_entered():
 	is_monkey_selected = true
-	
+
+
+
+# Function Name: _on_mouse_exited
+# 	Change is_monkey_selected to false when the mouse
+#	leaves the monkey collision area
 func _on_mouse_exited():
 	is_monkey_selected = false
 	
@@ -44,6 +71,27 @@ func _on_mouse_exited():
 #	the camera to zoom out and highlight the action areas
 func _on_action_button_activated():
 	action_needs_selecting.emit()
+	GlobalSignalGlue.is_monkey_action_pressed.emit()
+
+
+
+# Function Name: _on_player_camera_controller_camera_zoomed_out
+# Description:
+#	Call the scale_up() function from the monkey gui node to scale the gui up 
+# 	after the camera is zoomed out
+func _on_player_camera_controller_camera_zoomed_out():
+	if monkey_action_buttons:
+		monkey_action_buttons.scale_up()
+
+
+# Function Name: _on_player_camera_controller_camera_zoomed_in
+# Description:
+#	Call the scale_down() function from the monkey gui node to scale the gui back
+# 	down after the camera zooms back in
+func _on_player_camera_controller_camera_zoomed_in():
+	if monkey_action_buttons:
+		monkey_action_buttons.scale_down()
+	
 
 
 
@@ -70,9 +118,7 @@ func create_menu_instance() -> void:
 		monkey_action_buttons = monkey_gui_scene.instantiate()
 		monkey_action_buttons.position = Vector2(0, -128) 
 		monkey_action_buttons.action_button_activated.connect(_on_action_button_activated)
-
-		if monkey_action_buttons:
-			self.add_child(monkey_action_buttons)
+		self.add_child(monkey_action_buttons)
 
 
 
@@ -80,12 +126,10 @@ func create_menu_instance() -> void:
 # Description:
 # 	If the scene is valid then remove the child from the Monkey tree
 func destory_menu_instance() -> void:
-	if is_instance_valid($GUI_Layer.get_node(monkey_action_buttons.get_path())) && monkey_action_buttons:
+	if is_instance_valid(get_parent().get_node(monkey_action_buttons.get_path())) && monkey_action_buttons:
 		self.remove_child(monkey_action_buttons)
 
 	
-
-
 
 """	=======		TEMP TEST FUNCTION		======="""
 
@@ -103,3 +147,5 @@ func test_panic_bar():
 
 
 """	=======		END TEMP TEST FUNCTION	======="""
+
+

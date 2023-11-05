@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://cuxytn5wn35em"]
+[gd_scene load_steps=5 format=3 uid="uid://cuxytn5wn35em"]
 
 [ext_resource type="PackedScene" uid="uid://dh7klyj14bg2j" path="res://Scenes/Monkey/monkey.tscn" id="1_nskbb"]
 [ext_resource type="PackedScene" uid="uid://d0hhs0um6k6ai" path="res://Scenes/CameraController/player_camera_controller.tscn" id="2_h60fo"]
-[ext_resource type="PackedScene" uid="uid://rv0mxvxs5ydp" path="res://Scenes/ActionAreas/machine_area.tscn" id="3_31qxc"]
+[ext_resource type="PackedScene" uid="uid://bhfpvat4ilfea" path="res://Scenes/ActionAreas/NuclearCore/nuclear_core.tscn" id="3_pret8"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_5s3ng"]
+vertices = PackedVector2Array(493, -279, 579, 147, 579, 278, -621, 277, -619, 133, -493, -279)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-493, -279, -619, 133, -621, 277, 579, 278, 579, 147, 493, -279)])
 
 [node name="TestNode" type="Node2D"]
 
@@ -12,8 +17,13 @@
 position = Vector2(2, -2)
 collision_layer = 3
 
-[node name="MachineArea" parent="." instance=ExtResource("3_31qxc")]
-position = Vector2(-585, 122)
+[node name="NuclearCore" parent="." instance=ExtResource("3_pret8")]
+position = Vector2(-574, 168)
 
-[connection signal="highlight_possible_actions" from="PlayerCameraController" to="MachineArea" method="_on_player_camera_controller_highlight_possible_actions"]
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_5s3ng")
+
+[connection signal="camera_zoomed_in" from="PlayerCameraController" to="Monkey" method="_on_player_camera_controller_camera_zoomed_in"]
+[connection signal="camera_zoomed_out" from="PlayerCameraController" to="Monkey" method="_on_player_camera_controller_camera_zoomed_out"]
+[connection signal="action_has_been_selected" from="Monkey" to="PlayerCameraController" method="_on_monkey_action_has_been_selected"]
 [connection signal="action_needs_selecting" from="Monkey" to="PlayerCameraController" method="_on_monkey_action_needs_selecting"]

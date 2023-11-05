@@ -20,14 +20,17 @@ position = Vector2(0.5, -1)
 shape = SubResource("RectangleShape2D_tkslj")
 debug_color = Color(0.811765, 0.286275, 0.745098, 0.419608)
 
-[node name="MachineType" type="Node" parent="." node_paths=PackedStringArray("action_time_timer", "repair_time_timer")]
+[node name="MachineType" type="Node" parent="." node_paths=PackedStringArray("action_time_timer", "repair_time_timer", "weighted_event_timer")]
 script = ExtResource("3_xltjt")
-action_name = "TestAction"
+action_name = "TestMachine"
 action_time_timer = NodePath("../Timers/ActionTimer")
 repair_time_timer = NodePath("../Timers/RepairTimer")
+weighted_event_timer = NodePath("../Timers/WEventTimer")
 
 [node name="Timers" type="Node2D" parent="."]
 
 [node name="ActionTimer" type="Timer" parent="Timers"]
 
 [node name="RepairTimer" type="Timer" parent="Timers"]
+
+[node name="WEventTimer" type="Timer" parent="Timers"]

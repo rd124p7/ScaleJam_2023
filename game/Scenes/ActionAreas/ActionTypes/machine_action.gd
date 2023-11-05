@@ -78,20 +78,18 @@ enum MACHINE_STATE {
 # 	Initialize the timers wait time and connect their timeout signals to 
 #	function within this script
 func _init():
+	pass
+
+
+func _ready():
 	action_time_timer.wait_time = action_time
 	action_time_timer.timeout.connect(_on_action_time_timer_timeout)
 	repair_time_timer.wait_time = repair_time
 	repair_time_timer.timeout.connect(_on_repair_time_timer_timeout)
 	weighted_event_timer.wait_time = event_time
 	weighted_event_timer.timeout.connect(_on_weighted_event_timer_timeout)
-
-
-
-# Function Name: _process
-# Description:
-# 	
-func _process(_delta):
-	pass
+	weighted_event_timer.start()
+	print(weighted_event_timer.is_stopped())
 
 
 
@@ -105,13 +103,20 @@ func _on_action_time_timer_timeout():
 
 # Function Name: _on_repair_time_timer_timeout
 # Description:
-#	
+#	Reset the machine when the repair is completed
 func _on_repair_time_timer_timeout():
-	pass
+	machine_reset()
+	repair_time_timer.stop()
 
 
+
+# Function Name: _on_weighted_event_timer_timeout
+# Description:
+# 	When the timer timesout calculate break event to see if the machine breaks, only 
+# 	calculate it when the machine is not broken
 func _on_weighted_event_timer_timeout():
-	pass
+	if current_machine_state != MACHINE_STATE.BROKEN:
+		calculate_weighted_break_event()
 
 
 
@@ -127,8 +132,19 @@ func generate_random_event_number() -> float:
 
 # Function Name: calculate_weighted_break_event
 # Description: 
-# 	Will decide to change the state of the Machine based on if this
+# 	Will decide to change the state of the Machine based on if this, then emit
+#	the machine_broken signal
 func calculate_weighted_break_event() -> void:
 	var weighted_number: float = generate_random_event_number()
 	if weighted_number > 0 && weighted_number <= 10:
 		current_machine_state = MACHINE_STATE.BROKEN
+		machine_broken.emit()
+
+
+
+# Function Name: machine_reset
+# Description:
+# 	Will reset the machine to running when it is fixed
+func machine_reset() -> void:
+	if current_machine_state == MACHINE_STATE.BROKEN:
+		current_machine_state = MACHINE_STATE.RUNNING

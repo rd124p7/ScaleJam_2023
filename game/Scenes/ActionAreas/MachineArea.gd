@@ -18,4 +18,5 @@ func _on_player_camera_controller_highlight_possible_actions():
 
 
 
-	
+func _on_machine_type_machine_broken():
+	print("Machine is Broken")

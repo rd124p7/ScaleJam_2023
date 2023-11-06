@@ -75,9 +75,3 @@ func _on_mouse_exited():
 
 
 
-func _on_work_area_body_entered(body:Node2D):
-	pass # Replace with function body.
-	
-
-func _on_work_area_body_exited(body:Node2D):
-	pass # Replace with function body.

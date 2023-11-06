@@ -44,8 +44,8 @@ func _physics_process(delta):
 		direction = direction.normalized()
 		velocity = velocity.lerp(direction * 100, 10 * delta)
 
-	move_and_slide()
-
+	var collision_info = move_and_collide(velocity * delta)
+	$MachineCollisions.check_machine_collision(collision_info)
 
 
 # Function Name: _on_mouse_entered

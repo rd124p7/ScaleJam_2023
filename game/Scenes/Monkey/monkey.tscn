@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dh7klyj14bg2j"]
+[gd_scene load_steps=7 format=3 uid="uid://dh7klyj14bg2j"]
 
 [ext_resource type="Script" path="res://Scenes/Monkey/monkey.gd" id="1_1pdyh"]
 [ext_resource type="Script" path="res://Scenes/Monkey/StateController.gd" id="2_80kim"]
 [ext_resource type="Script" path="res://Scenes/Monkey/monkey_do_action.gd" id="3_iypl6"]
 [ext_resource type="Texture2D" uid="uid://wwc6c6krp7cp" path="res://assets/Monkey_1.png" id="3_wp8nu"]
+[ext_resource type="Script" path="res://Scenes/Monkey/machine_collisions.gd" id="4_7ewe3"]
 [ext_resource type="PackedScene" uid="uid://hg5vut0tquyc" path="res://Scenes/Monkey/MonkeyGui/monkey_panic_bar_indicator.tscn" id="4_bc4u5"]
 
 [node name="Monkey" type="CharacterBody2D"]
@@ -18,6 +19,9 @@ script = ExtResource("2_80kim")
 
 [node name="MonkeyDoAction" type="Node2D" parent="."]
 script = ExtResource("3_iypl6")
+
+[node name="MachineCollisions" type="Node2D" parent="."]
+script = ExtResource("4_7ewe3")
 
 [node name="MonkeySprite" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)

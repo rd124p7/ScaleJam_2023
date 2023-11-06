@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bhfpvat4ilfea"]
+[gd_scene load_steps=5 format=3 uid="uid://bhfpvat4ilfea"]
 
 [ext_resource type="Script" path="res://Scenes/ActionAreas/NuclearCore/NuclearCore.gd" id="1_e3igv"]
 [ext_resource type="Texture2D" uid="uid://cuqw23pxlv7ow" path="res://assets/TempActionArea.png" id="2_v762h"]
@@ -7,10 +7,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dayyx"]
 size = Vector2(64, 64)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_pgxsl"]
-radius = 67.0075
-
-[node name="NuclearCore" type="AnimatableBody2D"]
+[node name="NuclearCore" type="AnimatableBody2D" groups=["MachineGroup"]]
+collision_layer = 3
 input_pickable = true
 script = ExtResource("1_e3igv")
 
@@ -36,12 +34,5 @@ weighted_event_timer = NodePath("../NuclearCoreTimers/EventTimer")
 
 [node name="EventTimer" type="Timer" parent="NuclearCoreTimers"]
 
-[node name="WorkArea" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WorkArea"]
-shape = SubResource("CircleShape2D_pgxsl")
-
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
-[connection signal="body_entered" from="WorkArea" to="." method="_on_work_area_body_entered"]
-[connection signal="body_exited" from="WorkArea" to="." method="_on_work_area_body_exited"]

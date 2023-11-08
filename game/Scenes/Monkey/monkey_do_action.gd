@@ -1,8 +1,6 @@
 extends Node2D
 
 
-
-
 # Function Name: _ready
 # Description:
 # 	Connect the action signals
@@ -37,11 +35,19 @@ func _on_nuclear_core_action_stopped():
 # Function Name: 
 # Description:
 # 	
-func start_nuclear_action(machine_to_start_action: Node) -> void:
+func start_nuclear_action(machine_to_start_action: Node2D) -> void:
 	if get_parent().monkey_action_state == MonkeyState.M_STATES.DO_ACTION:
-		machine_to_start_action.get_node("MachineType").start_machine_action(
-			machine_to_start_action.get("MachineType").machine_name
+		get_machine_type(machine_to_start_action).start_machine_action(
+			get_machine_type(machine_to_start_action).machine_name
 		)
 
-func test_func():
-	print("Hello")
+
+
+func get_machine_type(m_base: Node2D) -> Node2D:
+	for machine in m_base.get_children():
+		if machine.name == "MachineType":
+			return machine
+	return
+	
+
+

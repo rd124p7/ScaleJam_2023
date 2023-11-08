@@ -1,5 +1,5 @@
 class_name MachineType
-extends Node
+extends Node2D
 
 #Signals
 signal machine_action_needed

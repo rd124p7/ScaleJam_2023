@@ -23,7 +23,7 @@ func check_machine_collisions(collision_info) -> void:
 			# Nuclear Core Collision
 			if collider.collision_layer == C_LAYER.NUCLEAR_CORE_LAYER:
 				if get_parent().monkey_action_state == MonkeyState.M_STATES.DO_ACTION:
-					$MonkeyDoAction.start_nuclear_action(collider)
+					$"../MonkeyDoAction".start_nuclear_action(collider)
 					
 			# Nuclear Waste Collision
 			if collider.collision_layer == C_LAYER.NUCLEAR_WASTE_LAYER:

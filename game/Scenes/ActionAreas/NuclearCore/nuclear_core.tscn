@@ -12,18 +12,18 @@ collision_layer = 2
 input_pickable = true
 script = ExtResource("1_e3igv")
 
+[node name="MachineType" type="Node2D" parent="." node_paths=PackedStringArray("action_time_timer", "repair_time_timer", "weighted_event_timer")]
+script = ExtResource("3_swaga")
+action_time_timer = NodePath("../NuclearCoreTimers/ActionTimer")
+repair_time_timer = NodePath("../NuclearCoreTimers/RepairTimer")
+weighted_event_timer = NodePath("../NuclearCoreTimers/EventTimer")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_v762h")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_dayyx")
 debug_color = Color(0.823529, 0, 0.388235, 0.419608)
-
-[node name="MachineType" type="Node" parent="." node_paths=PackedStringArray("action_time_timer", "repair_time_timer", "weighted_event_timer")]
-script = ExtResource("3_swaga")
-action_time_timer = NodePath("../NuclearCoreTimers/ActionTimer")
-repair_time_timer = NodePath("../NuclearCoreTimers/RepairTimer")
-weighted_event_timer = NodePath("../NuclearCoreTimers/EventTimer")
 
 [node name="NuclearCoreTimers" type="Node2D" parent="."]
 

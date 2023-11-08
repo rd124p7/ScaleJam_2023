@@ -45,7 +45,7 @@ func _physics_process(delta):
 		velocity = velocity.lerp(direction * 100, 10 * delta)
 
 	var collision_info = move_and_collide(velocity * delta)
-	$MachineCollisions.check_machine_collision(collision_info)
+	$MachineCollisions.check_machine_collisions(collision_info)
 
 
 # Function Name: _on_mouse_entered

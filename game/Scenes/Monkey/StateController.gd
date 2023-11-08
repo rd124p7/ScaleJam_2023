@@ -67,7 +67,7 @@ func action_state_actions() -> void:
 			pass
 		MonkeyState.M_STATES.DO_ACTION:
 			pass
-		MonkeyState.M_STATES.COOLING_REACTOR:
+		MonkeyState.M_STATES.RETURN_STATION:
 			pass
 		MonkeyState.M_STATES.NEED_ATTENTION:
 			pass

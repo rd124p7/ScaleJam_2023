@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://hg5vut0tquyc" path="res://Scenes/Monkey/MonkeyGui/monkey_panic_bar_indicator.tscn" id="4_bc4u5"]
 
 [node name="Monkey" type="CharacterBody2D"]
+collision_mask = 3
 input_pickable = true
 script = ExtResource("1_1pdyh")
 
@@ -17,11 +18,11 @@ polygon = PackedVector2Array(1, -23, -16, -21, -30, 7, -30, 13, -24, 23, -26, 32
 [node name="StateController" type="Node" parent="."]
 script = ExtResource("2_80kim")
 
-[node name="MonkeyDoAction" type="Node2D" parent="."]
-script = ExtResource("3_iypl6")
-
 [node name="MachineCollisions" type="Node2D" parent="."]
 script = ExtResource("4_7ewe3")
+
+[node name="MonkeyDoAction" type="Node2D" parent="."]
+script = ExtResource("3_iypl6")
 
 [node name="MonkeySprite" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)

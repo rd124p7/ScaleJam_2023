@@ -7,7 +7,7 @@ signal monkey_state_changed
 enum M_STATES {
 	IDLE,
 	DO_ACTION,
-	COOLING_REACTOR,
+	RETURN_STATION,
 	NEED_ATTENTION,
 	CALMING_DOWN
 } 

@@ -12,16 +12,21 @@ enum MACHINE_STATE {
 	BROKEN
 }
 
+# Machine Type
+enum MACHINE_NAME {
+	NUCLEAR_CORE
+}
+
 
 # Property Name: action_name
 # Description:
 # 	What the action will be refered to in other scripts
 # 	Will remove any spaces within the string
-@export var action_name: String:
+@export var machine_name: MACHINE_NAME:
 	set(value):
-		action_name = value.replace(" ", "")
+		machine_name = value
 	get:
-		return action_name
+		return machine_name
 	
 
 # Property Name: action_time
@@ -73,14 +78,10 @@ enum MACHINE_STATE {
 
 
 
-# Function Name: _init
+# Function Name: _ready
 # Description:
 # 	Initialize the timers wait time and connect their timeout signals to 
 #	function within this script
-func _init():
-	pass
-
-
 func _ready():
 	action_time_timer.wait_time = action_time
 	action_time_timer.timeout.connect(_on_action_time_timer_timeout)
@@ -95,9 +96,9 @@ func _ready():
 
 # Function Name: _on_action_time_timer_timeout
 # Description:
-# 	
+# 	Emit that the nuclear core action is stopped
 func _on_action_time_timer_timeout():
-	pass
+	GlobalSignalGlue.nuclear_core_action_stopped.emit()
 
 
 
@@ -117,6 +118,16 @@ func _on_repair_time_timer_timeout():
 func _on_weighted_event_timer_timeout():
 	if current_machine_state != MACHINE_STATE.BROKEN:
 		calculate_weighted_break_event()
+
+
+# Function Name: start_machine_action
+# Description:
+# 	
+func start_machine_action(m_name: MACHINE_NAME) -> void:
+	action_time_timer.start()
+	
+	if m_name == MACHINE_NAME.NUCLEAR_CORE:
+		GlobalSignalGlue.nuclear_core_action_started.emit()
 
 
 

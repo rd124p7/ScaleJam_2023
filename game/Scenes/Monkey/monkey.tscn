@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dh7klyj14bg2j"]
+[gd_scene load_steps=8 format=3 uid="uid://dh7klyj14bg2j"]
 
 [ext_resource type="Script" path="res://Scenes/Monkey/monkey.gd" id="1_1pdyh"]
 [ext_resource type="Script" path="res://Scenes/Monkey/StateController.gd" id="2_80kim"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://wwc6c6krp7cp" path="res://assets/Monkey_1.png" id="3_wp8nu"]
 [ext_resource type="Script" path="res://Scenes/Monkey/machine_collisions.gd" id="4_7ewe3"]
 [ext_resource type="PackedScene" uid="uid://hg5vut0tquyc" path="res://Scenes/Monkey/MonkeyGui/monkey_panic_bar_indicator.tscn" id="4_bc4u5"]
+[ext_resource type="Script" path="res://Scenes/Monkey/MonkeyActionTimers.gd" id="7_l4e64"]
 
 [node name="Monkey" type="CharacterBody2D"]
 collision_mask = 3
@@ -33,6 +34,12 @@ position = Vector2(0, -65)
 
 [node name="MonkeyPanicBarIndicator" parent="MonkeyBarIndicators" instance=ExtResource("4_bc4u5")]
 scale = Vector2(0.5, 0.5)
+
+[node name="MonkeyActionTimers" type="Node2D" parent="."]
+script = ExtResource("7_l4e64")
+
+[node name="NuclearCoreActionTimer" type="Timer" parent="MonkeyActionTimers"]
+wait_time = 5.0
 
 [node name="MonkeyNavigation" type="NavigationAgent2D" parent="."]
 path_postprocessing = 1

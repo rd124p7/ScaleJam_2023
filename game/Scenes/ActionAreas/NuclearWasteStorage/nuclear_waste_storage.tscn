@@ -1,3 +1,12 @@
-[gd_scene format=3 uid="uid://b4bcpxmb653ns"]
+[gd_scene load_steps=2 format=3 uid="uid://b4bcpxmb653ns"]
 
-[node name="NuclearWasteStorage" type="Node2D"]
+[ext_resource type="Texture2D" uid="uid://dttostaer45el" path="res://assets/nuclear_vat.PNG" id="1_3nggd"]
+
+[node name="NuclearWasteStorage" type="AnimatableBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_3nggd")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-24, -72, -44, -24, -61, 59, -28, 71, 21, 73, 62, 62, 46, -26, 29, -72)

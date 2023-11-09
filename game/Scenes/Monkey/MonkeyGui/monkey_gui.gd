@@ -12,6 +12,8 @@ func _ready():
 	for button_node in self.get_children():
 		button_node.scale = Vector2(0, 0)
 
+	print(get_parent())
+
 
 
 # Function Name: _on_action_button_pressed
@@ -28,11 +30,9 @@ func _on_action_button_pressed():
 func _on_tree_entered():
 	animate_buttons()
 
-
-
 # Function Name: _on_tree_exited
 # Description:
-# 	When the node is removed from the tree, free the object from memory
+#	Remove menu node from memory
 func _on_tree_exited():
 	self.queue_free()
 
@@ -62,18 +62,19 @@ func animate_buttons() -> void:
 		button_tween.chain().tween_property($CancelButton, "scale", Vector2(1.0, 1.0), 0.1)
 
 
-# Function Name: scale_up
+
+func collapse_buttons() -> void:
+	var button_tween = get_tree().create_tween().bind_node(self).set_trans(Tween.TRANS_BOUNCE)
+	button_tween.tween_property($CancelButton, "scale", Vector2(0, 0), 0.2)
+	button_tween.chain().tween_property($FeedButton, "scale", Vector2(0, 0), 0.2)
+	button_tween.chain().tween_property($BladderButton, "scale", Vector2(0, 0), 0.2)
+	button_tween.chain().tween_property($ActionButton, "scale", Vector2(0, 0), 0.2)
+	button_tween.tween_callback(self.remove_menu_from_tree)
+
+
+# Function Name: remove_menu_from_tree
 # Description:
-# 	Scale the parent control node up to 1.8
-func scale_up() -> void:
-	var scale_up_tween = create_tween().set_trans(Tween.TRANS_EXPO)
-	scale_up_tween.tween_property(self, "scale", Vector2(1.8, 1.8), 1)
+# 	Remove this node from it's parent tree
+func remove_menu_from_tree() -> void:
+	get_parent().remove_child(self)
 
-
-
-# Function Name: scale_down
-# Description:
-#	Scale the parent control node down to 0.8
-func scale_down() -> void:
-	var scale_up_tween = create_tween().set_trans(Tween.TRANS_EXPO)
-	scale_up_tween.tween_property(self, "scale", Vector2(0.8, 0.8), 1)

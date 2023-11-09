@@ -6,7 +6,7 @@ extends Node2D
 # 	Connect the action signals
 func _ready():
 	GlobalSignalGlue.nuclear_core_clicked.connect(_on_nuclear_core_clicked)
-	GlobalSignalGlue.nuclear_core_action_stopped.connect(_on_nuclear_core_action_stopped)
+
 
 
 # Function Name: _on_nuclear_core_clicked
@@ -21,20 +21,9 @@ func _on_nuclear_core_clicked(core_position: Vector2):
 
 
 
-# Function Name: _on_nuclear_core_action_stopped
-# Description:
-# 	When the action is completed change the monkey state back to IDLE
-func _on_nuclear_core_action_stopped():
-	if get_parent().monkey_action_state == MonkeyState.M_STATES.DO_ACTION:
-		get_parent().monkey_action_state = MonkeyState.M_STATES.RETURN_STATION
-		print("Start")
-
-
-
-
 # Function Name: 
 # Description:
-# 	
+# 	Get the machine type that the player collided with and then start the action for that machine
 func start_nuclear_action(machine_to_start_action: Node2D) -> void:
 	if get_parent().monkey_action_state == MonkeyState.M_STATES.DO_ACTION:
 		get_machine_type(machine_to_start_action).start_machine_action(
@@ -43,11 +32,11 @@ func start_nuclear_action(machine_to_start_action: Node2D) -> void:
 
 
 
+# Function Name: get_machine_type
+# Description:
+# 	Get the machine type from the collider
 func get_machine_type(m_base: Node2D) -> Node2D:
 	for machine in m_base.get_children():
 		if machine.name == "MachineType":
 			return machine
 	return
-	
-
-

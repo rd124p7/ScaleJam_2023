@@ -68,30 +68,10 @@ func _on_mouse_exited():
 # Function Name: _on_action_button_activated
 # Description: 
 # 	When the Action Button is Pressed emit the action_needs_selecting signal, it will be used to tell 
-#	the camera to zoom out and highlight the action areas
+#	the camera to zoom out and highlight the action areas, then destroy the menu when the action button is clicked
 func _on_action_button_activated():
 	action_needs_selecting.emit()
 	GlobalSignalGlue.is_monkey_action_pressed.emit()
-
-
-
-# Function Name: _on_player_camera_controller_camera_zoomed_out
-# Description:
-#	Call the scale_up() function from the monkey gui node to scale the gui up 
-# 	after the camera is zoomed out
-func _on_player_camera_controller_camera_zoomed_out():
-	if monkey_action_buttons:
-		monkey_action_buttons.scale_up()
-
-
-# Function Name: _on_player_camera_controller_camera_zoomed_in
-# Description:
-#	Call the scale_down() function from the monkey gui node to scale the gui back
-# 	down after the camera zooms back in
-func _on_player_camera_controller_camera_zoomed_in():
-	if monkey_action_buttons:
-		monkey_action_buttons.scale_down()
-	
 
 
 
@@ -99,14 +79,16 @@ func _on_player_camera_controller_camera_zoomed_in():
 # Description:
 # 	Check for the right mouse button and call create_menu_instance function
 func handle_menu_mouse_hover() -> void:
-	if is_monkey_selected:
-		if Input.is_action_just_pressed("MonkeyActionMenu"):
-			is_create_menu = !is_create_menu
-			# Menu Toggle
-			if is_create_menu:
-				create_menu_instance()
-			else:
-				destory_menu_instance()
+	if monkey_action_state == MonkeyState.M_STATES.IDLE:
+		if is_monkey_selected:
+			if Input.is_action_just_pressed("MonkeyActionMenu"):
+				is_create_menu = !is_create_menu
+				# Menu Toggle
+				if is_create_menu:
+					create_menu_instance()
+				else:
+					destory_menu_instance()
+					is_create_menu = false
 
 
 
@@ -114,11 +96,10 @@ func handle_menu_mouse_hover() -> void:
 # Description:
 # 	Create a new instance of the monkey_gui_scene that contains the action buttons
 func create_menu_instance() -> void:
-	if is_create_menu:
-		monkey_action_buttons = monkey_gui_scene.instantiate()
-		monkey_action_buttons.position = Vector2(0, -128) 
-		monkey_action_buttons.action_button_activated.connect(_on_action_button_activated)
-		self.add_child(monkey_action_buttons)
+	monkey_action_buttons = monkey_gui_scene.instantiate()
+	monkey_action_buttons.position = Vector2(0, -128) 
+	monkey_action_buttons.action_button_activated.connect(_on_action_button_activated)
+	self.add_child(monkey_action_buttons)
 
 
 
@@ -126,8 +107,10 @@ func create_menu_instance() -> void:
 # Description:
 # 	If the scene is valid then remove the child from the Monkey tree
 func destory_menu_instance() -> void:
-	if is_instance_valid(get_parent().get_node(monkey_action_buttons.get_path())) && monkey_action_buttons:
-		self.remove_child(monkey_action_buttons)
+	if monkey_action_buttons:
+		monkey_action_buttons.collapse_buttons()
+		
+
 
 	
 
